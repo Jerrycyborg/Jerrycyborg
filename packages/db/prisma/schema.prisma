@@ -1,0 +1,182 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CHILD
+  PARENT
+  CAREGIVER
+  ADMIN
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  phone        String?   @unique
+  role         Role
+  passwordHash String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Parent       Parent?
+  Caregiver    Caregiver?
+  AuditLogs    AuditLog[]
+}
+
+model Parent {
+  id               String         @id @default(cuid())
+  userId           String         @unique
+  user             User           @relation(fields: [userId], references: [id])
+  name             String
+  language         String
+  timezone         String         @default("Asia/Kolkata")
+  address          String
+  emergencyContact String
+  childUsers       ParentChild[]
+  CheckIns         CheckIn[]
+  Visits           Visit[]
+}
+
+model ParentChild {
+  id        String @id @default(cuid())
+  parentId  String
+  childId   String
+  scope     String
+
+  parent Parent @relation(fields: [parentId], references: [id])
+  child  User   @relation(fields: [childId], references: [id])
+}
+
+model Caregiver {
+  id         String  @id @default(cuid())
+  userId     String  @unique
+  user       User    @relation(fields: [userId], references: [id])
+  fullName   String
+  zone       String
+  kycId      String
+  kycStatus  String
+  rating     Float   @default(5.0)
+  Visits     Visit[]
+}
+
+model CheckIn {
+  id        String   @id @default(cuid())
+  parentId  String
+  mood      String
+  note      String?
+  voiceUrl  String?
+  createdAt DateTime @default(now())
+
+  parent Parent @relation(fields: [parentId], references: [id])
+}
+
+model Visit {
+  id           String   @id @default(cuid())
+  parentId     String
+  caregiverId  String?
+  type         String
+  status       String
+  scheduledAt  DateTime
+  startAt      DateTime?
+  endAt        DateTime?
+  startGeo     String?
+  endGeo       String?
+  startSelfie  String?
+  endSelfie    String?
+  consentPhoto Boolean  @default(false)
+  notes        String?
+  photos       Json?
+
+  parent    Parent    @relation(fields: [parentId], references: [id])
+  caregiver Caregiver? @relation(fields: [caregiverId], references: [id])
+  Feedbacks Feedback[]
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  visitId   String
+  childId   String
+  rating    Int
+  comments  String?
+  createdAt DateTime @default(now())
+
+  visit Visit @relation(fields: [visitId], references: [id])
+  child User  @relation(fields: [childId], references: [id])
+}
+
+model Plan {
+  id             String @id @default(cuid())
+  code           String @unique
+  priceInr       Int
+  visitsPerMonth Int
+  features       Json
+  Subscriptions  Subscription[]
+}
+
+model Subscription {
+  id                String   @id @default(cuid())
+  childId           String
+  parentId          String
+  planId            String
+  status            String
+  startAt           DateTime @default(now())
+  currentPeriodEnd  DateTime?
+  paymentProvider   String
+  providerSubId     String?
+  Payments          Payment[]
+
+  child User @relation(fields: [childId], references: [id])
+  parent Parent @relation(fields: [parentId], references: [id])
+  plan   Plan   @relation(fields: [planId], references: [id])
+}
+
+model Payment {
+  id             String   @id @default(cuid())
+  subscriptionId String?
+  childId        String
+  amountInr      Int
+  currency       String
+  status         String
+  provider       String
+  providerRef    String?
+  createdAt      DateTime @default(now())
+
+  subscription Subscription? @relation(fields: [subscriptionId], references: [id])
+  child        User          @relation(fields: [childId], references: [id])
+}
+
+model Alert {
+  id         String   @id @default(cuid())
+  parentId   String
+  type       String
+  message    String?
+  createdAt  DateTime @default(now())
+  resolved   Boolean  @default(false)
+  resolvedBy String?
+
+  parent Parent @relation(fields: [parentId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model ConsentLog {
+  id        String   @id @default(cuid())
+  visitId   String
+  caregiver String
+  status    String
+  createdAt DateTime @default(now())
+
+  visit Visit @relation(fields: [visitId], references: [id])
+}

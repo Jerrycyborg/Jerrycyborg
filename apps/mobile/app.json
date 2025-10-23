@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "PariConnect",
+    "slug": "pariconnect",
+    "scheme": "pariconnect",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FAFAF7"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FAFAF7"
+      },
+      "package": "com.pariconnect.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a1111111-b222-c333-d444-e55555555555"
+      },
+      "apiUrl": "${EXPO_PUBLIC_API_URL}"
+    }
+  }
+}

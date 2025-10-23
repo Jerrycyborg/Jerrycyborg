@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "types": ["jest", "react-native"],
+    "lib": ["esnext"],
+    "noEmit": true
+  },
+  "include": ["src", "App.tsx", "app.config.ts", "expo-env.d.ts"],
+  "exclude": ["node_modules"]
+}

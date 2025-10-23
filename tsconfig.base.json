@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pariconnect/ui/*": ["packages/ui/src/*"],
+      "@pariconnect/api/*": ["packages/api/src/*"],
+      "@pariconnect/db": ["packages/db/src/index"],
+      "@pariconnect/types": ["packages/types/src/index"]
+    }
+  },
+  "include": ["packages", "apps", "scripts"],
+  "exclude": ["node_modules", "dist", "build"]
+}
