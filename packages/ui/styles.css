@@ -1,0 +1,11 @@
+:root {
+  --color-saffron: #F2994A;
+  --color-teal: #118473;
+  --color-ivory: #FAFAF7;
+  --color-charcoal: #141826;
+}
+
+button[data-variant='primary'] {
+  background-color: var(--color-teal);
+  color: var(--color-ivory);
+}

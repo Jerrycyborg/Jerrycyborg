@@ -1,0 +1,23 @@
+{
+  "name": "pariconnect",
+  "private": true,
+  "version": "0.1.0",
+  "description": "PariConnect monorepo - elder-care connection platform",
+  "packageManager": "pnpm@8.15.4",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter @pariconnect/api dev\" \"pnpm --filter @pariconnect/web dev\" \"pnpm --filter @pariconnect/admin dev\"",
+    "mobile": "pnpm --filter @pariconnect/mobile start",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "db:migrate": "pnpm --filter @pariconnect/db migrate",
+    "seed": "pnpm --filter @pariconnect/db seed",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "20.11.30",
+    "concurrently": "8.2.2",
+    "prettier": "3.2.5",
+    "typescript": "5.4.5"
+  }
+}
