@@ -1,10 +1,16 @@
-- 👋 Hi, I’m @Jerrycyborg
-- 👀 I’m interested in ..S3curi7y.
-- 🌱 I’m currently learning ..SeCuRiTy Management
-- 💞️ I’m looking to collaborate on ..Ethical hackers
-- 📫 How to reach me ..LinkedIn
+# Hi there 👋
 
-<!---
-Jerrycyborg/Jerrycyborg is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+I'm Marshal.
+
+I'm interested in:
+- AI security
+- developer tooling
+- cloud authentication
+- building practical engineering resources
+
+Recently I've been working on:
+
+🔐 AI Security Testing Playbook  
+A hands-on project exploring security risks in LLM applications.
+
+More projects to come soon.....
